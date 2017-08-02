@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>对话窗口</title>
+		<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_4xz1ujz25vc84cxr.css" />
+		<link rel="stylesheet" type="text/css" href="static/lib/reset.css" />
+		<link rel="stylesheet" type="text/css" href="static/css/index.css" />
+		<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+		<!--阿里rem-->
+		<script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
+		<script src="static/lib/bscroll.min.js"></script>
+		<script src="static/lib/socket.io.js"></script>
+	</head>
+
+	<body>
+		<div id="app">
+			<!--bs滑动区-->
+			<div id="hua">
+				<!--对话内容-->
+				<div class="con">
+					
+				</div>
+				<!--对话内容end-->
+			</div>
+			<!--bs滑动区end-->	
+
+			<!--底部输入框 表情 更多-->
+			<div class="bottom">
+				<!--输入框 加号 更多-->
+				<div class="botInput">
+					<div class="msgCon">
+						<input class="input" type="text" />
+					</div>
+					<div class="face">
+						<i class="biaoqing"></i>
+					</div>
+					<div class="more">
+						<i class="jiahao"></i>
+					</div>
+					<!--<div id="send">
+							<a href="javascript:;">发 送</a>
+						</div>-->
+				</div>
+				<!--输入框 加号 更多end-->
+				<!--加号内容-->
+				<div class="moreNone none">
+					<div class="moreCon">
+						<dl class="photo">
+							<label for="photo">
+									<dt class="tupian moreIcon"></dt>
+									<dd>图片</dd>
+								</label>
+							<input type="file" accept="image/png,image/jpg,image/bmp,image/jpeg,image/gif" name="photo" id="photo" />
+						</dl>
+						<dl class="wenjian">
+							<label for="wenjian">
+									<dt class="wenjianjia moreIcon"></dt>
+									<dd>文件</dd>
+								</label>
+							<input type="file" name="wenjian" id="wenjian" />
+						</dl>
+					</div>
+				</div>
+				<!--加号内容end-->
+				<!--表情列表-->
+				<div class="faceNone none">
+					<ul class="faceList">
+						
+					</ul>
+				</div>
+				<!--表情列表end-->
+
+			</div>
+			<!--bottom end-->
+		</div>
+	</body>
+	<!--表情列表-->
+	<!--<script src="static/js/face.js" type="text/javascript" charset="utf-8"></script>-->
+	<script src="static/js/indexHx.js" type="text/javascript" charset="utf-8"></script>
+	<script src="static/js/indexWs.js" type="text/javascript" charset="utf-8"></script>
+
+</html>
