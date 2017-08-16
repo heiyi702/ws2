@@ -151,18 +151,11 @@ $(function(){
 	//打开聊天获取用户基本信息
 	function getUserMsg(){
 		var pageurl=location.href;
-        //oaId = request.QueryString("oaid");
-        //userId = request.QueryString("openid");
-        //rightIconURL = request.QueryString("headimgurl");
-        //userNickname = request.QueryString("nickname");
-
-        //ws.emit('setname', userId);
-		//alert("Page URL:" + pageurl); 
 			
 		var userinfo = JSON.parse(decodeURIComponent(pageurl.split("?ui=")[1])); 
 		//alert("UI:" + JSON.stringify(userinfo));
         oaId = userinfo.oaid;
-        document.title = userinfo.oaname;
+        document.title = "《" + userinfo.oaname + "》客服中心";
 		userId = userinfo.openid; 
 		userNickname = userinfo.nickname; 
 		rightIconURL = userinfo.headimgurl; 

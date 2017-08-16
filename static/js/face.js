@@ -1,28 +1,31 @@
 var data=[
-        {src:'static/img/face/傲慢.png',con:'[Smug]'},
-        {src:'static/img/face/白眼.png',con:'[Slight]'},
-        {src:'static/img/face/呲牙.png',con:'[Grin]'},
-        {src:'static/img/face/害羞.png',con:'[Shy]'},
-        {src:'static/img/face/憨笑.png',con:'[Laugh]'},
-        {src:'static/img/face/惊讶.png',con:'[Surprise]'},
-        {src:'static/img/face/大哭.png',con:'[Sob]'},
-        {src:'static/img/face/疯了.png',con:'[Scream]'},
-        {src:'static/img/face/偷笑.png',con:'[Chuckle]'},
-        {src:'static/img/face/愉快.png',con:'[Joyful]'},
+        //[Smile][Grimace][Drool][Scowl][CoolGuy][Sob][Shy][Silent]
         {src:'static/img/face/微笑.png',con:'[Smile]'},
-        {src:'static/img/face/难过.png',con:'[Frown]'},
-        {src:'static/img/face/流泪.png',con:'[Cry]'},
         {src:'static/img/face/撇嘴.png',con:'[Grimace]'},
-        {src:'static/img/face/调皮.png',con:'[Tongue]'},
+        {src:'static/img/face/色.png',con:'[Drool]'},
+        {src:'static/img/face/发呆.png',con:'[Scowl]'},
+        {src:'static/img/face/酷.png',con:'[CoolGuy]'},
+        {src:'static/img/face/大哭.png',con:'[Sob]'},
+        {src:'static/img/face/害羞.png',con:'[Shy]'},
         {src:'static/img/face/住嘴.png',con:'[Silent]'},
+        //[Sleep][Cry][Awkward][Angry][Tongue][Grin][Surprise][Frown]
+        {src:'static/img/face/睡.png',con:'[Sleep]'},
+        {src:'static/img/face/流泪.png',con:'[Cry]'},
         {src:'static/img/face/尴尬.png',con:'[Awkward]'},
         {src:'static/img/face/发怒.png',con:'[Angry]'},
-        {src:'static/img/face/发呆.png',con:'[Scowl]'},
-        {src:'static/img/face/色.png',con:'[Drool]'},
-        {src:'static/img/face/睡.png',con:'[Sleep]'},
+        {src:'static/img/face/调皮.png',con:'[Tongue]'},
+        {src:'static/img/face/呲牙.png',con:'[Grin]'},
+        {src:'static/img/face/惊讶.png',con:'[Surprise]'},
+        {src:'static/img/face/难过.png',con:'[Frown]'},
+        //[Blush][Scream][Puke][Chuckle][Joyful][Slight][Smug][Laugh]
         {src:'static/img/face/囧.png',con:'[Blush]'},
-        {src:'static/img/face/酷.png',con:'[CoolGuy]'},
-        {src:'static/img/face/吐.png',con:'[Puke]'}
+        {src:'static/img/face/疯了.png',con:'[Scream]'},
+        {src:'static/img/face/吐.png',con:'[Puke]'},  
+        {src:'static/img/face/偷笑.png',con:'[Chuckle]'},
+        {src:'static/img/face/愉快.png',con:'[Joyful]'},
+        {src:'static/img/face/白眼.png',con:'[Slight]'},
+        {src:'static/img/face/傲慢.png',con:'[Smug]'},
+        {src:'static/img/face/憨笑.png',con:'[Laugh]'}
 ];
 
 var faceData={
