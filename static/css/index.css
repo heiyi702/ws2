@@ -27,6 +27,12 @@ html {
   width: 100%;
   padding: 0 0.266666rem;
 }
+#app .con .kong {
+  width: 100%;
+  height: 0px;
+  overflow: hidden;
+  color: #f5f5f6;
+}
 #app .con .tip {
   clear: both;
   margin: 0 auto;
@@ -99,40 +105,12 @@ html {
   -webkit-box-direction: reverse;
   -ms-flex-direction: row-reverse;
   flex-direction: row-reverse;
-  /*	width: 100%;
-        	height: auto;
-        	display: -webkit-box;
-        	display: -ms-flexbox;
-        	display: flex;
-        	-webkit-box-orient: horizontal;
-	     	.zijiR{	//自己的头像
-        		width: 1.066666rem;
-                height: 1.066666rem;
-                display: block;
-                float: right;
-                overflow: hidden;
-                img {
-                    display: block;
-                    width: 100%;
-                    height: 100%;
-                }
-        }
-        	.zijiL{
-        		width: 1.546666rem;
-        	}*/
 }
 #app .con .zijiTxt .zijiC {
   -webkit-box-orient: horizontal;
   -webkit-box-direction: reverse;
   -ms-flex-direction: row-reverse;
   flex-direction: row-reverse;
-  /*		position: relative;
-        		-webkit-box-flex: 1;
-        		    -ms-flex: 1;
-        		        flex: 1;
-		        display: -webkit-box;
-		        display: -ms-flexbox;
-		        display: flex;*/
 }
 #app .con .zijiTxt .zijiC .txtP {
   margin-right: 0.266666rem;
@@ -222,12 +200,15 @@ html {
 }
 #app .con div .speech .picCon {
   display: block;
-  width: 2.933333rem;
+  min-width: 1rem;
+  max-width: 3rem;
 }
 #app .con div .speech .picCon img {
   display: block;
   width: 100%;
   height: auto;
+  min-height: 1rem;
+  max-height: 6rem;
 }
 #app .con div .speech .fiel {
   width: 6.133333rem;
@@ -287,17 +268,6 @@ html {
   height: 1.2rem;
   background: #845737 url(../img/ZIP.png) no-repeat center;
   background-size: 100% 100%;
-  /*        line-height: 1.2rem;
-                            -webkit-box-sizing: border-box;
-                                    box-sizing: border-box;
-                            vertical-align: middle;
-                            overflow: hidden;
-                            border: 0.013333rem solid #aaa;
-                            border-radius: 5px;
-                            text-align: center;
-                            background: #845737;
-                            color: #fff;
-                            font-size: 0.666666rem;*/
 }
 #app .con div .speech .fielBot {
   padding: 0 0.293333rem;
@@ -466,6 +436,7 @@ html {
   background: #fff;
 }
 #app .con .rightd {
+  padding: 0.2rem 0;
   clear: both;
   float: right;
   /*    .wenjian{
@@ -560,7 +531,7 @@ html {
   -webkit-box-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  padding-left: 0.24rem;
+  padding: 0 0.12rem;
   height: 0.933333rem;
   line-height: 0.933333rem;
 }
@@ -604,19 +575,16 @@ html {
   background-size: 100%;
 }
 #app .bottom .botInput #send {
-  -webkit-box-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
+  display: none;
+  width: 2rem;
   text-align: center;
-  padding: 0.5rem;
-  height: 1.4rem;
-  line-height: 1.4rem;
+  padding: 0 0.12rem;
+  height: 0.9rem;
+  line-height: 0.9rem;
 }
 #app .bottom .botInput #send a {
   display: block;
   width: 100%;
-  height: 1.4rem;
-  line-height: 1.4rem;
   background: #9eea6a;
   text-align: center;
   color: #fff;
