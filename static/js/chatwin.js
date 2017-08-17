@@ -20,7 +20,7 @@ $(function(){
 	//图片上传失败
 	var imgErrUrl='static/img/imgerr.png';
 	// 默认头像
-	var leftIconURL='./static/img/left.jpg';
+	var leftIconURL='./static/img/LOGO.png';
 	var rightIconURL='./static/img/right.jpg';
 	//ws连接状态码
 	var wsState=false;
@@ -89,61 +89,36 @@ $(function(){
 	ws.on('message', function(data){
         text = data.text.content;
         leftIconURL = data.headimgurl;
-        showFormTxt(text);
-		/*if(data.touser==userId){
-			//接收文字信息
-			if(data.msgtype=='text'){
-				var txt=data.text.content;
-                leftIconURL = data.headimgurl;
-				showFormTxt(txt);
-				text2bottom();
-				detailMessage(txt, data.FromUserName, 'txt',msgid);
-			}else{
-				if(data.MsgType=='text'){
-					var txt=data.Content;
-					otherDetailMessage(txt, data.FromUserName, 'txt',msgid);
-				}
-			}
-		}*/
+		//接收文字信息
+		if(data.MsgType=='text'){
+			var txt=data.Content;
+			showFormTxt(txt);
+			text2bottom();
+			detailMessage(txt, data.FromUserName, 'txt',msgid,leftIconURL);
+		}
 		
 	});
 	
 	//接收图片消息
 	/*ws.on('', function(data){
-		var msgid=data.MsgId;
-		if(data.FromUserName==toId){
-			//接收文字信息
-			if(data.MsgType=='img'){
-				var url=data.Content;
-				showFormImg(url);
-				detailMessage(url, data.FromUserName, 'img',msgid);
-			}else{
-				if(data.MsgType=='img'){
-					var txt=data.Content;
-					otherDetailMessage(url, data.FromUserName, 'img',msgid);
-				}
-			}
-		}
-		
+		var msgid=data.MsgId;		
+		//接收文字信息
+		if(data.MsgType=='img'){
+			var url=data.Content;
+			showFormImg(url);
+			detailMessage(url, data.FromUserName, 'img',msgid);
+		}		
 	});
 	
 	//接收卡片推送消息
 	ws.on('', function(data){
 		var msgid=data.MsgId;
-		if(data.FromUserName==toId){
-			//接收文字信息
-			if(data.MsgType=='card'){
-				var card=data.Content;
-				showCardMsg(card);
-				detailMessage(card, data.FromUserName, 'card',msgid);
-			}else{
-				if(data.MsgType=='card'){
-					var card=data.Content;
-					otherDetailMessage(card, data.FromUserName, 'card',msgid);
-				}
-			}
-		}
-		
+		//接收文字信息
+		if(data.MsgType=='card'){
+			var card=data.Content;
+			showCardMsg(card);
+			detailMessage(card, data.FromUserName, 'card',msgid);
+		}		
 	});
 	*/
 	
@@ -205,7 +180,7 @@ $(function(){
 	
 	
 	//缓存消息处理 	
-	function detailMessage(data, from, type, id) {
+	function detailMessage(data, from, type, id,headimgurl) {
 		var localContent = new Array();
 		if(localStorage[group]) {
 			localContent = JSON.parse(localStorage[group]);
@@ -216,7 +191,8 @@ $(function(){
 				'data': data, //数据
 				'from': from, //谁发的
 				'type': type, //文本类型
-				'id': id //消息id
+				'id': id, //消息id
+				'headimgurl':headimgurl,
 			};			
 		}else{
 			localContent.shift();
@@ -225,14 +201,15 @@ $(function(){
 				'data': data, //数据
 				'from': from, //谁发的
 				'type': type, //文本类型
-				'id': id //消息id
+				'id': id, //消息id
+				'headimgurl':headimgurl,//头像
 			})
 		}
 		localStorage[group] = JSON.stringify(localContent); //存储本地；
 	}
     
     //处理其他用户发送的消息 缓存处理 
-	function otherDetailMessage(data,from,type,id){
+	function otherDetailMessage(data,from,type,id,headimgurl){
 	    var localContent = new Array();
 	    var current_group = userId+':'+from;
 	    if (localStorage[current_group]) {
@@ -245,7 +222,8 @@ $(function(){
 				'data': data, //数据
 				'from': from, //谁发的
 				'type': type, //文本类型
-				'id': id //消息id
+				'id': id, //消息id
+				'headimgurl':headimgurl,//头像
 			};			
 		}else{
 			localContent.shift();
@@ -254,7 +232,8 @@ $(function(){
 				'data': data, //数据
 				'from': from, //谁发的
 				'type': type, //文本类型
-				'id': id //消息id
+				'id': id, //消息id
+				'headimgurl':headimgurl,//头像
 			})
 		}
 	    localStorage[current_group] = JSON.stringify(localContent);//存储本地；
@@ -267,13 +246,17 @@ $(function(){
 		}
 		$('.none').slideUp(0);
 		$('.faceNone').slideDown(200,text2bottom);
-		var inputCon = $('.input').eq(0).val();
+//		var inputCon = $('.input').eq(0).val();
+		var inputCon = $('.input').eq(0).html();
 		//点击表情 加入到input
 		$('.faceList li').on('click', function() {
+			var val='';
 			var face = $(this).data('con')
-			var val = inputCon + face;
-			$('.input').eq(0).val(val);
-			inputCon = $('.input').eq(0).val();
+			val = inputCon + face;
+//			$('.input').eq(0).val(val);
+			$('.input').eq(0).html(val);
+//			inputCon = $('.input').eq(0).val();
+			inputCon = $('.input').eq(0).html();
 			$('.more').eq(0).css('display','none');
 			$('#send').css('display','block');	
 		})
@@ -372,7 +355,7 @@ $(function(){
 
 	function replace_em(str) { 
          //alert("in replace_em with:" + str);  
-         var reg = /\[囧\]|\[CoolGuy\]|\[Blush\]|\[Scream\]|\[Silent\]|\[Slight\]|\[Laugh\]|\[Grin\]|\[Cry\]|\[Scowl\]|\[Angry\]|\[Awkward\]|\[Shy\]|\[Surprise\]|\[Sob\]|\[Frown\]|\[Grimace\]|\[Drool\]|\[Sleep\]|\[Tongue\]|\[Smile\]|\[Puke\]|\[Chuckle\]|\[Joyful\]|\[Smug\]|\/\:\,@o|\/\:\:d|\/\:\:D|\/\:\:'\(|\/\:\:\||\/\:\:@|\/\:\:Q|\/\:\:\-\||\/\:\:\$|\/\:\:>|\/\:\:O|\/\:\:\-o|\/\:8\-\)|\/\:\:<|\/\:\:\(|\/\:\:\~|\/\:\:B|\/\:\:Z|\/\:\:P|\/\:\,@P|\/\:\,@-D|\/\:\:\)|\/\:\:X|\/\:\:T/g; 
+        var reg = /\[Heart\]|\[Fist\]|\[Facepalm\]|\[Fight\]|\[Shake\]|\[ThumbsDown\]|\[ThumbsUp\]|\[Rose\]|\[囧\]|\[CoolGuy\]|\[Blush\]|\[Scream\]|\[Silent\]|\[Slight\]|\[Laugh\]|\[Grin\]|\[Cry\]|\[Scowl\]|\[Angry\]|\[Awkward\]|\[Shy\]|\[Surprise\]|\[Sob\]|\[Frown\]|\[Grimace\]|\[Drool\]|\[Sleep\]|\[Tongue\]|\[Smile\]|\[Puke\]|\[Chuckle\]|\[Joyful\]|\[Smug\]|\/\:\,@o|\/\:\:d|\/\:\:D|\/\:\:'\(|\/\:\:\||\/\:\:@|\/\:\:Q|\/\:\:\-\||\/\:\:\$|\/\:\:>|\/\:\:O|\/\:\:\-o|\/\:8\-\)|\/\:\:<|\/\:\:\(|\/\:\:\~|\/\:\:B|\/\:\:Z|\/\:\:P|\/\:\,@P|\/\:\,@-D|\/\:\:\)|\/\:\:X|\/\:\:T/g; 
 
         str = str.replace(reg, function(a){
             //alert(a); 
@@ -387,7 +370,7 @@ $(function(){
 
     function replace_emback(str) { 
         // alert("in replace_emback with:" + str);  
-         var reg = /\[囧\]|\[CoolGuy\]|\[Blush\]|\[Scream\]|\[Silent\]|\[Slight\]|\[Laugh\]|\[Grin\]|\[Cry\]|\[Scowl\]|\[Angry\]|\[Awkward\]|\[Shy\]|\[Surprise\]|\[Sob\]|\[Frown\]|\[Grimace\]|\[Drool\]|\[Sleep\]|\[Tongue\]|\[Smile\]|\[Puke\]|\[Chuckle\]|\[Joyful\]|\[Smug\]|\/\:\,@o|\/\:\:d|\/\:\:D|\/\:\:'\(|\/\:\:\||\/\:\:@|\/\:\:Q|\/\:\:\-\||\/\:\:\$|\/\:\:>|\/\:\:O|\/\:\:\-o|\/\:8\-\)|\/\:\:<|\/\:\:\(|\/\:\:\~|\/\:\:B|\/\:\:Z|\/\:\:P|\/\:\,@P|\/\:\,@-D|\/\:\:\)|\/\:\:X|\/\:\:T/g; 
+        var reg = /\[Heart\]|\[Fist\]|\[Facepalm\]|\[Fight\]|\[Shake\]|\[ThumbsDown\]|\[ThumbsUp\]|\[Rose\]|\[囧\]|\[CoolGuy\]|\[Blush\]|\[Scream\]|\[Silent\]|\[Slight\]|\[Laugh\]|\[Grin\]|\[Cry\]|\[Scowl\]|\[Angry\]|\[Awkward\]|\[Shy\]|\[Surprise\]|\[Sob\]|\[Frown\]|\[Grimace\]|\[Drool\]|\[Sleep\]|\[Tongue\]|\[Smile\]|\[Puke\]|\[Chuckle\]|\[Joyful\]|\[Smug\]|\/\:\,@o|\/\:\:d|\/\:\:D|\/\:\:'\(|\/\:\:\||\/\:\:@|\/\:\:Q|\/\:\:\-\||\/\:\:\$|\/\:\:>|\/\:\:O|\/\:\:\-o|\/\:8\-\)|\/\:\:<|\/\:\:\(|\/\:\:\~|\/\:\:B|\/\:\:Z|\/\:\:P|\/\:\,@P|\/\:\,@-D|\/\:\:\)|\/\:\:X|\/\:\:T/g; 
          str = str.replace(reg, function(a){
            // alert(a); 
             if (faceData[a] == undefined) 
@@ -438,11 +421,10 @@ $(function(){
 	//自己发送的文本信息发到屏幕上
 	function showMyTxt(msgCon) {
 		if(msgCon.trim() == '') {
-			$('.input').eq(0).blur();
+//			$('.input').eq(0).blur();
 			return;
 		}
-
-		var msgCon = replace_emback(msgCon);
+		msgCon = replace_emback(msgCon);
 
 		//加入到内容区
 		$('.con').append('<div class="zijiTxt"><div class="zijiR"><img src="'+
@@ -451,10 +433,11 @@ $(function(){
                          msgCon + 
                          '</div></div><div class="zijiL"></div></div>');
 
-		$('.input').eq(0).val('');
-		$('.input').eq(0).blur();
+		$('.input').eq(0).html('');
+//		$('#sendCon').val('');
+//		$('.input').eq(0).blur();
 		text2bottom();
-		$('.input').eq(0)[0].focus();
+//		$('.input').eq(0)[0].focus();
 	}
 	
 	//显示自己的图片信息 
@@ -529,7 +512,10 @@ $(function(){
 	//发送文字消息
 	function sendMsgTxt(){
 		//获取文本内容
-		var msgCon=$(".input").eq(0).val();
+//		var msgCon=$(".input").eq(0).val();
+		var msgCon=$(".input").eq(0).html();
+		var regEnter=/\<div\>|\<\/div\>/g;
+	 	msgCon=msgCon.replace(regEnter,'');
 		if (msgCon.trim().length==0){
 	    	return ;
 	   }
@@ -544,10 +530,11 @@ $(function(){
 			"MsgId":msgid,
 			"CreateTime":now,
 		};
+		
 		if(wsState==true){
 			ws.emit('send',setMsg);
 			showMyTxt(msgCon);
-			detailMessage(msgCon,'me','txt',msgid);		
+			detailMessage(msgCon,'me','txt',msgid,rightIconURL);		
 			$('.input').eq(0)[0].focus();
 		}else{
 			showTip(tipOver);
@@ -557,7 +544,12 @@ $(function(){
 	
 	//回车发送文本消息
 	$('.input').keyup(function(e) {
-		var con=$('.input').eq(0).val();
+//		var con=$('.input').eq(0).val();
+		var con=$('.input').eq(0).html();
+		var regEnter=/\<div\>|\<\/div\>/g;
+		 	con=con.replace(regEnter,'');
+		$('.input').eq(0).scrollTop = $('.input').eq(0).scrollHeight;
+		text2bottom();
 		if(con.trim()==''){
 			$('.more').eq(0).css('display','block');
 			$('#send').css('display','none');
@@ -566,7 +558,8 @@ $(function(){
 			$('#send').css('display','block');						
 		}
 		if(e.keyCode == 13) {
-            //showMyTxt(con)
+		 	
+//			showMyTxt(con)
 			sendMsgTxt();
 			$('.more').eq(0).css('display','block');
 			$('#send').css('display','none');
@@ -578,11 +571,17 @@ $(function(){
 	$('#send').click(function(){
 		sendMsgTxt();
         //var con=$('.input').eq(0).val();
-        //showMyTxt(con)
+          var con=$('.input').eq(0).html();
+//        showMyTxt(con)
 		$('.more').eq(0).css('display','block');
 		$('#send').css('display','none');
-        //$('.none').slideUp(200,text2bottom);
-		$('.input').eq(0)[0].focus();
+        $('.none').slideUp(200,text2bottom);
+        if($('.faceNone').eq(0).css('display')=='block'){
+			return
+		}else{
+			$('.input').eq(0)[0].focus();
+		}
+		
 	})
 	
 	//暂无发送图片 文件 功能

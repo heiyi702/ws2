@@ -25,7 +25,16 @@ var data=[
         {src:'static/img/face/愉快.png',con:'[Joyful]'},
         {src:'static/img/face/白眼.png',con:'[Slight]'},
         {src:'static/img/face/傲慢.png',con:'[Smug]'},
-        {src:'static/img/face/憨笑.png',con:'[Laugh]'}
+        {src:'static/img/face/憨笑.png',con:'[Laugh]'},
+        //[Rose][ThumbsUp][ThumbsDown][Shake][Fight][Facepalm][Fist][Heart]
+        {src:'static/img/face/玫瑰.png',con:'[Rose]'},
+        {src:'static/img/face/赞.png',con:'[ThumbsUp]'},
+        {src:'static/img/face/踩.png',con:'[ThumbsDown]'},
+        {src:'static/img/face/握手.png',con:'[Shake]'},
+        {src:'static/img/face/抱拳.png',con:'[Fight]'},
+        {src:'static/img/face/捂脸.png',con:'[Facepalm]'},
+        {src:'static/img/face/拳头.png',con:'[Fist]'},
+        {src:'static/img/face/心.png',con:'[Heart]'},
 ];
 
 var faceData={
@@ -51,9 +60,17 @@ var faceData={
         '[Drool]':'<img class="txtFace" src="static/img/face/色.png" />',
         '[Sleep]':'<img class="txtFace" src="static/img/face/睡.png" />',
         '[Blush]':'<img class="txtFace" src="static/img/face/囧.png" />',
-        '[囧]':'<img class="txtFace" src="static/img/face/囧.png" />',
         '[CoolGuy]':'<img class="txtFace" src="static/img/face/酷.png" />',
         '[Puke]':'<img class="txtFace" src="static/img/face/吐.png" />',
+        '[囧]':'<img class="txtFace" src="static/img/face/囧.png" />',
+        '[Rose]':'<img class="txtFace" src="static/img/face/玫瑰.png" />',
+        '[ThumbsUp]':'<img class="txtFace" src="static/img/face/赞.png" />',
+        '[ThumbsDown]':'<img class="txtFace" src="static/img/face/踩.png" />',
+        '[Shake]':'<img class="txtFace" src="static/img/face/握手.png" />',
+        '[Fight]':'<img class="txtFace" src="static/img/face/抱拳.png" />',
+        '[Facepalm]':'<img class="txtFace" src="static/img/face/捂脸.png" />',
+        '[Fist]':'<img class="txtFace" src="static/img/face/拳头.png" />',
+        '[Heart]':'<img class="txtFace" src="static/img/face/心.png" />',
 
         '/:,@o':'<img class="txtFace" src="static/img/face/傲慢.png" />',
         '/::d':'<img class="txtFace" src="static/img/face/白眼.png" />',

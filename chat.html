@@ -1,9 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta content="email=no" name="format-detection" />
+		<meta name="format-detection" content="telephone=no" />
 		<title>对话窗口</title>
 		<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_4xz1ujz25vc84cxr.css" />
 		<link rel="stylesheet" type="text/css" href="static/lib/reset.css" />
@@ -21,7 +23,7 @@
 			<div id="hua">
 				<!--对话内容-->
 				<div class="con">
-					
+					<div id="upKong">&nbsp; </div>
 				</div>
 				<!--对话内容end-->
 			</div>
@@ -32,7 +34,8 @@
 				<!--输入框 加号 更多-->
 				<div class="botInput">
 					<div class="msgCon">
-						<input class="input" type="text" />
+						<!--<input class="input" type="text" />-->
+						<div contenteditable="true" class="input"></div>
 					</div>
 					<div class="face">
 						<i class="biaoqing"></i>
@@ -40,9 +43,9 @@
 					<div class="more">
 						<i class="jiahao"></i>
 					</div>
-					<!--<div id="send">
-							<a href="javascript:;">发 送</a>
-						</div>-->
+					<div id="send">
+						<a href="javascript:;">发送</a>
+					</div>
 				</div>
 				<!--输入框 加号 更多end-->
 				<!--加号内容-->

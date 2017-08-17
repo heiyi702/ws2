@@ -191,12 +191,51 @@ html {
   background: #9eea6a;
   border-radius: 0.106666rem;
   font-size: 0.4rem;
-  line-height: 0.506666rem;
-  vertical-align: top;
+  line-height: 0.5rem;
+  vertical-align: middle;
 }
 #app .con div .speech .txtFace {
-  height: 0.4rem;
+  height: 0.5rem;
   width: auto;
+  vertical-align: top;
+  padding: 0 0.05rem;
+}
+#app .con div .speech .medicine {
+  width: 6.133333rem;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0.293333rem 0.293333rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: row;
+  flex-flow: row;
+}
+#app .con div .speech .medicine .medicineImg {
+  display: block;
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 0.013333rem solid #d4d0d0;
+  border-radius: 4px;
+}
+#app .con div .speech .medicine .medicineImg img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+#app .con div .speech .medicine .medicineName {
+  width: 4.133333rem;
+  overflow: hidden;
+  padding-top: 0.2rem;
+  font-size: 0.213333rem;
+  line-height: 0.5rem;
+  height: 1rem;
+  color: #333;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 #app .con div .speech .picCon {
   display: block;
@@ -513,10 +552,10 @@ html {
   width: 100%;
   overflow: hidden;
   background: #f5f5f5;
-  font-size: 16px;
 }
 #app .bottom .botInput {
-  padding: 0.266666rem 0;
+  padding: 0.2rem 0 0.1rem;
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -531,14 +570,20 @@ html {
   -webkit-box-flex: 1;
   -ms-flex: 1;
   flex: 1;
+  width: 75%;
   padding: 0 0.12rem;
-  height: 0.933333rem;
-  line-height: 0.933333rem;
+  padding-left: 0.24rem;
 }
-#app .bottom .botInput .msgCon input {
-  width: 100%;
-  height: 0.933333rem;
-  line-height: 0.933333rem;
+#app .bottom .botInput .msgCon .input {
+  font-size: 0.4rem;
+  max-width: 95%;
+  background: #fff;
+  max-height: 2.2rem;
+  overflow-y: auto;
+  line-height: 0.45rem;
+  line-height: 20px;
+  vertical-align: middle;
+  padding: 0.2rem 2% 0.1rem;
   border: 0.013333rem solid #e2e2e3;
   border-radius: 3px;
   outline: none;
@@ -574,21 +619,29 @@ html {
   background: url(../img/jiahao.png) no-repeat center;
   background-size: 100%;
 }
+#app .bottom .botInput .face {
+  padding-left: 0;
+}
+#app .bottom .botInput .more {
+  padding-right: 0.24rem;
+}
 #app .bottom .botInput #send {
   display: none;
-  width: 2rem;
+  width: 1.3rem;
   text-align: center;
   padding: 0 0.12rem;
+  padding-right: 0.24rem;
   height: 0.9rem;
   line-height: 0.9rem;
 }
 #app .bottom .botInput #send a {
   display: block;
   width: 100%;
-  background: #9eea6a;
+  background: #42c30c;
   text-align: center;
   color: #fff;
   font-weight: 900;
+  border-radius: 3px;
 }
 #app .bottom .moreNone {
   display: none;
