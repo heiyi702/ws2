@@ -1,11 +1,11 @@
 $(function(){
-	var userId = 'yonghuOpenid';
+	var userId = '';
 	var userNickname = '用户昵称';
     //var userPassword = '123';
 	var toId = 'DOC12345';
 	var toNickname='甲医生';
 	//公众号id
-	var oaId;
+	var oaid;
 	//设置当前聊天组 key: "user1:user2" 当前用户和user2聊天 缓存用
 	var group = userId + ':' + toId; 
 	var documentLoading='正在连接...';
@@ -63,7 +63,6 @@ $(function(){
 		});
 	}
 	
-
 	var hostfe = "http://wx.ics.h960.com/";
 
 	var ws ;
@@ -94,7 +93,7 @@ $(function(){
 			var txt=data.Content;
 			showFormTxt(txt);
 			text2bottom();
-			detailMessage(txt, data.FromUserName, 'txt',msgid,leftIconURL);
+			detailMessage(txt, data.FromUserName, 'txt',msgid, leftIconURL);
 		}
 		
 	});
@@ -129,7 +128,7 @@ $(function(){
 			
 		var userinfo = JSON.parse(decodeURIComponent(pageurl.split("?ui=")[1])); 
 		//alert("UI:" + JSON.stringify(userinfo));
-        oaId = userinfo.oaid;
+        oaid = userinfo.oaid;
         document.title = "《" + userinfo.oaname + "》客服中心";
 		userId = userinfo.openid; 
 		userNickname = userinfo.nickname; 
@@ -180,7 +179,7 @@ $(function(){
 	
 	
 	//缓存消息处理 	
-	function detailMessage(data, from, type, id,headimgurl) {
+	function detailMessage(data, from, type, id, headimgurl) {
 		var localContent = new Array();
 		if(localStorage[group]) {
 			localContent = JSON.parse(localStorage[group]);
@@ -209,7 +208,7 @@ $(function(){
 	}
     
     //处理其他用户发送的消息 缓存处理 
-	function otherDetailMessage(data,from,type,id,headimgurl){
+	function otherDetailMessage(data,from,type,id, headimgurl){
 	    var localContent = new Array();
 	    var current_group = userId+':'+from;
 	    if (localStorage[current_group]) {
@@ -524,7 +523,7 @@ $(function(){
 		var msgid = "h5c"+now.toString() + (Math.round(Math.random()*99999) + 100000);
 		var setMsg={
 			"FromUserName":userId,
-			"ToUserName":oaId,
+			"ToUserName":oaid,
 			"MsgType":'text',
 			"Content":msgCon,
 			"MsgId":msgid,
@@ -571,8 +570,8 @@ $(function(){
 	$('#send').click(function(){
 		sendMsgTxt();
         //var con=$('.input').eq(0).val();
-          var con=$('.input').eq(0).html();
-//        showMyTxt(con)
+        var con=$('.input').eq(0).html();
+        //showMyTxt(con)
 		$('.more').eq(0).css('display','block');
 		$('#send').css('display','none');
         $('.none').slideUp(200,text2bottom);
@@ -621,7 +620,7 @@ $(function(){
 						'userId':userId,
 						'toId':toId,
 						'msgType':'img',
-						"oaid":oaId,
+						"oaid":oaid,
 						'img':{
 							'imgCon':imgurl,
 						},
