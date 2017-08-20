@@ -1,11 +1,11 @@
 $(function(){
-	var userId = '';
+	var userId = 'yonghuOpenid';
 	var userNickname = '用户昵称';
     //var userPassword = '123';
 	var toId = 'DOC12345';
 	var toNickname='甲医生';
 	//公众号id
-	var oaid;
+	var oaId;
 	//设置当前聊天组 key: "user1:user2" 当前用户和user2聊天 缓存用
 	var group = userId + ':' + toId; 
 	var documentLoading='正在连接...';
@@ -63,6 +63,7 @@ $(function(){
 		});
 	}
 	
+
 	var hostfe = "http://wx.ics.h960.com/";
 
 	var ws ;
@@ -80,6 +81,7 @@ $(function(){
 	//链接断开
 	ws.on('disconnect',function(){
         //showTip(tipOver);
+        ws.emit('delname',userId);
 		wsState=false;
 	})
     
@@ -88,12 +90,13 @@ $(function(){
 	ws.on('message', function(data){
         text = data.text.content;
         leftIconURL = data.headimgurl;
+        //alert(JSON.stringify(data)); 
 		//接收文字信息
-		if(data.MsgType=='text'){
-			var txt=data.Content;
+		if(data.msgtype=="text"){
+			var txt=data.text.content;
 			showFormTxt(txt);
 			text2bottom();
-			detailMessage(txt, data.FromUserName, 'txt',msgid, leftIconURL);
+			detailMessage(txt, 'server', 'txt',msgid,leftIconURL);
 		}
 		
 	});
@@ -128,12 +131,16 @@ $(function(){
 			
 		var userinfo = JSON.parse(decodeURIComponent(pageurl.split("?ui=")[1])); 
 		//alert("UI:" + JSON.stringify(userinfo));
-        oaid = userinfo.oaid;
+        oaId = userinfo.oaid;
         document.title = "《" + userinfo.oaname + "》客服中心";
 		userId = userinfo.openid; 
 		userNickname = userinfo.nickname; 
-		rightIconURL = userinfo.headimgurl; 
-        ws.emit('setname',userinfo.openid);
+		rightIconURL = userinfo.headimgurl;
+        leftIconURL = userinfo.oaheadimgurl;
+        var ui = {};
+        ui.openid = userinfo.openid;
+        ui.oaid = oaId;
+        ws.emit('h5cui', ui);
 	}
 	   
     //滚动条到最下方
@@ -179,7 +186,7 @@ $(function(){
 	
 	
 	//缓存消息处理 	
-	function detailMessage(data, from, type, id, headimgurl) {
+	function detailMessage(data, from, type, id,headimgurl) {
 		var localContent = new Array();
 		if(localStorage[group]) {
 			localContent = JSON.parse(localStorage[group]);
@@ -208,7 +215,7 @@ $(function(){
 	}
     
     //处理其他用户发送的消息 缓存处理 
-	function otherDetailMessage(data,from,type,id, headimgurl){
+	function otherDetailMessage(data,from,type,id,headimgurl){
 	    var localContent = new Array();
 	    var current_group = userId+':'+from;
 	    if (localStorage[current_group]) {
@@ -262,10 +269,10 @@ $(function(){
 	})
 	
 	//调出更多
-	$('.more').click(function() {
+   /*	$('.more').click(function() {
 		$('.none').slideUp(0);
 		$('.moreNone').slideDown(200,text2bottom);
-	})
+	})*/
     
     //关闭表情 更多
 	$('.con').click(function() {
@@ -508,22 +515,24 @@ $(function(){
         */
 	}
 	
-	//发送文字消息
+	//发送文字消息到ChatServer
 	function sendMsgTxt(){
 		//获取文本内容
-//		var msgCon=$(".input").eq(0).val();
+        //var msgCon=$(".input").eq(0).val();
 		var msgCon=$(".input").eq(0).html();
 		var regEnter=/\<div\>|\<\/div\>/g;
 	 	msgCon=msgCon.replace(regEnter,'');
 		if (msgCon.trim().length==0){
 	    	return ;
-	   }
+	    }
+        //regEnter=/\<\/br\>/g;
+        //msgCon=msgCon.replace(regEnter,'\\n');
 		//设置msg信息
 		var now = (new Date()).valueOf();
 		var msgid = "h5c"+now.toString() + (Math.round(Math.random()*99999) + 100000);
 		var setMsg={
 			"FromUserName":userId,
-			"ToUserName":oaid,
+			"ToUserName":oaId,
 			"MsgType":'text',
 			"Content":msgCon,
 			"MsgId":msgid,
@@ -531,7 +540,7 @@ $(function(){
 		};
 		
 		if(wsState==true){
-			ws.emit('send',setMsg);
+			ws.emit('h5ctext',setMsg);
 			showMyTxt(msgCon);
 			detailMessage(msgCon,'me','txt',msgid,rightIconURL);		
 			$('.input').eq(0)[0].focus();
@@ -550,30 +559,30 @@ $(function(){
 		$('.input').eq(0).scrollTop = $('.input').eq(0).scrollHeight;
 		text2bottom();
 		if(con.trim()==''){
-			$('.more').eq(0).css('display','block');
-			$('#send').css('display','none');
+			//$('.more').eq(0).css('display','block');
+			$('#send').css('display','block');
 		}else{
-			$('.more').eq(0).css('display','none');
+			//$('.more').eq(0).css('display','none');
 			$('#send').css('display','block');						
 		}
-		if(e.keyCode == 13) {
+		/*if(e.keyCode == 13) {
 		 	
 //			showMyTxt(con)
 			sendMsgTxt();
 			$('.more').eq(0).css('display','block');
 			$('#send').css('display','none');
 			$('.input').eq(0)[0].focus();
-		}
+		}*/
 	})
 	
 	//点击发送
 	$('#send').click(function(){
 		sendMsgTxt();
         //var con=$('.input').eq(0).val();
-        var con=$('.input').eq(0).html();
-        //showMyTxt(con)
-		$('.more').eq(0).css('display','block');
-		$('#send').css('display','none');
+          var con=$('.input').eq(0).html();
+//        showMyTxt(con)
+		//$('.more').eq(0).css('display','block');
+		$('#send').css('display','block');
         $('.none').slideUp(200,text2bottom);
         if($('.faceNone').eq(0).css('display')=='block'){
 			return
@@ -620,7 +629,7 @@ $(function(){
 						'userId':userId,
 						'toId':toId,
 						'msgType':'img',
-						"oaid":oaid,
+						"oaid":oaId,
 						'img':{
 							'imgCon':imgurl,
 						},
